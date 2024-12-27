@@ -7,7 +7,7 @@ import ImageModal from "./components/ImageModal/ImageModal";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import axios from "axios";
 
-type Image = {
+type GalleryImage = {
   id: string;
   description: string;
   urls: { small: string; regular: string };
@@ -16,13 +16,13 @@ type Image = {
 const accessKey = "BKfrCHbs8Xe0DH6EXeVKITP6FERPUbzqPAktJyW4mDg";
 
 const App: React.FC = () => {
-  const [images, setImages] = useState<Image[]>([]);
+  const [images, setImages] = useState<GalleryImage[]>([]);
   const [query, setQuery] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
   const totalPages = useRef<number>(0);
 
   const handleSearch = (newQuery: string) => {
@@ -36,7 +36,7 @@ const App: React.FC = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const openModal = (image: Image) => {
+  const openModal = (image: GalleryImage) => {
     setSelectedImage(image);
     setModalIsOpen(true);
   };
@@ -58,7 +58,7 @@ const App: React.FC = () => {
             Authorization: `Client-ID ${accessKey}`,
           },
         });
-        const results = response.data.results as Image[];
+        const results = response.data.results as GalleryImage[];
 
         if (page === 1) {
           setImages(results);

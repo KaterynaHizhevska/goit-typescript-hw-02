@@ -1,15 +1,15 @@
 import s from './ImageGallery.module.css';
 import ImageCard from '../ImageCard/ImageCard';
 
-type Image = {
+type GalleryImage = {
   id: string;
   description: string;
-  urls: { small: string };
+  urls: { small: string; regular: string };
 };
 
 type ImageGalleryProps = {
-  images: Image[];
-  openModal: (image: Image) => void;
+  images: GalleryImage[];
+  openModal: (image: GalleryImage) => void;
 };
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({ images, openModal }) => {
