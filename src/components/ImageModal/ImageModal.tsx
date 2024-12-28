@@ -1,15 +1,11 @@
 import Modal from 'react-modal';
 import s from './ImageModal.module.css';
-
-type Image = {
-  description: string;
-  urls: { regular: string };
-};
+import { GalleryImage } from '../../types';
 
 type ImageModalProps = {
   modalIsOpen: boolean;
   closeModal: () => void;
-  image: Image | null;
+  image: GalleryImage | null;
 };
 
 Modal.setAppElement("#root");

@@ -6,12 +6,7 @@ import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import axios from "axios";
-
-type GalleryImage = {
-  id: string;
-  description: string;
-  urls: { small: string; regular: string };
-};
+import { GalleryImage, ImagesDataResponse } from "./types";
 
 const accessKey = "BKfrCHbs8Xe0DH6EXeVKITP6FERPUbzqPAktJyW4mDg";
 
@@ -52,13 +47,14 @@ const App: React.FC = () => {
     const fetchImages = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get("https://api.unsplash.com/search/photos", {
+        const response = await axios.get<ImagesDataResponse>("https://api.unsplash.com/search/photos", {
           params: { query, page, per_page: 12 },
           headers: {
             Authorization: `Client-ID ${accessKey}`,
           },
         });
-        const results = response.data.results as GalleryImage[];
+
+        const results = response.data.results;
 
         if (page === 1) {
           setImages(results);
